@@ -1,8 +1,6 @@
-const {JSWord} = require('ait-lang/interfaces');
+const jsword = require('ait-lang/interfaces');
 
-const raf = JSWord(function(quote) {
-  const runtime = arguments[arguments.length - 1];
-
+const raf = jsword(function(quote) {
   const timestamp = (new Date()).valueOf();
 
   let lastFrame = 0;
@@ -10,15 +8,14 @@ const raf = JSWord(function(quote) {
     const delta = t - lastFrame;
 
     rafID = requestAnimationFrame(inner);
-    runtime.addAnimation(timestamp, rafID);
+    this.addAnimation(timestamp, rafID);
 
     if(lastFrame && delta < 33) { return; }
 
-    quote.evaluate();
+    this.evaluateQuotation(quote);
     lastFrame = t;
   });
-  runtime.addAnimation(timestamp, rafID);
+  this.addAnimation(timestamp, rafID);
 });
-raf.produces(0);
 
 module.exports = { raf };

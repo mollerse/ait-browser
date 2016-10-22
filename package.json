@@ -18,7 +18,7 @@
     "url": "https://github.com/mollerse/ait-browser/issues"
   },
   "homepage": "https://github.com/mollerse/ait-browser#readme",
-  "dependencies": {
+  "peerDependencies": {
     "ait-lang": "github:mollerse/ait-lang"
   }
 }
