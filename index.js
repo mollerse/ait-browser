@@ -7,14 +7,14 @@ const raf = jsword(function(quote) {
   let rafID = requestAnimationFrame(function inner(t) {
     const delta = t - lastFrame;
 
-    rafID = requestAnimationFrame(inner);
+    rafID = requestAnimationFrame(inner.bind(this));
     this.addAnimation(timestamp, rafID);
 
     if(lastFrame && delta < 33) { return; }
 
     this.evaluateQuotation(quote);
     lastFrame = t;
-  });
+  }.bind(this));
   this.addAnimation(timestamp, rafID);
 });
 
