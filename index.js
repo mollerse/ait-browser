@@ -1,21 +1,29 @@
 const jsword = require('ait-lang/interfaces');
 
-const raf = jsword(function(quote) {
-  const timestamp = (new Date()).valueOf();
+function fpsToMs(fps) {
+  // We know that 60fps means 16ms to do all calcs
+  return (60/fps) * 16;
+}
 
+const rAF = jsword(function(fps, quote) {
+  const timestamp = (new Date()).valueOf();
+  let rafID;
   let lastFrame = 0;
-  let rafID = requestAnimationFrame(function inner(t) {
+
+  const inner = t => {
     const delta = t - lastFrame;
 
-    rafID = requestAnimationFrame(inner.bind(this));
+    rafID = requestAnimationFrame(inner);
     this.addAnimation(timestamp, rafID);
 
-    if(lastFrame && delta < 33) { return; }
+    if(lastFrame && delta < (fpsToMs(fps) + 1)) { return; }
 
     this.evaluateQuotation(quote);
     lastFrame = t;
-  }.bind(this));
+  };
+
+  rafID = requestAnimationFrame(inner);
   this.addAnimation(timestamp, rafID);
 });
 
-module.exports = { raf };
+module.exports = { rAF };

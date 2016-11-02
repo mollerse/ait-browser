@@ -1,24 +1,24 @@
 {
-  "name": "ait-browser",
-  "version": "1.0.0",
-  "description": "Ait module with browser bindings",
+  "name": "ait-dom",
+  "version": "0.1.0",
+  "description": "Ait module with DOM bindings",
   "main": "index.js",
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mollerse/ait-browser.git"
+    "url": "git+https://github.com/mollerse/ait-dom.git"
   },
   "keywords": [
     "Ait",
-    "browser"
+    "dom"
   ],
   "author": "Stian Møllersen",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mollerse/ait-browser/issues"
+    "url": "https://github.com/mollerse/ait-dom/issues"
   },
-  "homepage": "https://github.com/mollerse/ait-browser#readme",
+  "homepage": "https://github.com/mollerse/ait-dom#readme",
   "peerDependencies": {
-    "ait-lang": "github:mollerse/ait-lang"
+    "ait-lang": "^0.1.0"
   }
 }

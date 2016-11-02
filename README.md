@@ -1,11 +1,16 @@
-# `ait-browser`
+# `ait-dom`
 
-Browser words for the Ait Language
+Browser/DOM words for the Ait Language
 
 ## Install
 
-`npm install mollerse/ait-browser`
+`npm install mollerse/ait-dom`
 
 ## Usage
 
 TODO
+
+
+## Missing
+
+pretty much everything
