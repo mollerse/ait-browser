@@ -5,7 +5,7 @@ function fpsToMs(fps) {
   return (60/fps) * 16;
 }
 
-const rAF = jsword(function(fps, quote) {
+const rAF = jsword('rAF', function(fps, quote) {
   const timestamp = (new Date()).valueOf();
   let rafID;
   let lastFrame = 0;
