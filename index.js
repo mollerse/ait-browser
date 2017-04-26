@@ -1,29 +1,36 @@
 const jsword = require('ait-lang/interfaces');
 
 function fpsToMs(fps) {
-  // We know that 60fps means 16ms to do all calcs
-  return (60/fps) * 16;
+  // We know that 60fps means 16.5ms to do all calcs
+  return 60 / fps * 16.5;
 }
 
 const rAF = jsword('rAF', function(fps, quote) {
-  const timestamp = (new Date()).valueOf();
+  const timestamp = new Date().valueOf();
+  const msThreshold = fpsToMs(fps);
+
+  const frame = () => this.evaluateQuotation(quote);
+  const animationId = id => this.addAnimation(timestamp, id);
+
   let rafID;
   let lastFrame = 0;
-
-  const inner = t => {
+  function inner(t) {
     const delta = t - lastFrame;
 
     rafID = requestAnimationFrame(inner);
-    this.addAnimation(timestamp, rafID);
+    animationId(rafID);
 
-    if(lastFrame && delta < (fpsToMs(fps) + 1)) { return; }
+    if (lastFrame && delta < msThreshold) {
+      return;
+    }
 
-    this.evaluateQuotation(quote);
+    frame();
+
     lastFrame = t;
-  };
+  }
 
   rafID = requestAnimationFrame(inner);
-  this.addAnimation(timestamp, rafID);
+  animationId(rafID);
 });
 
 module.exports = { rAF };
