@@ -1,6 +1,6 @@
 {
   "name": "ait-dom",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Ait module with DOM bindings",
   "main": "index.js",
   "scripts": {},
@@ -19,6 +19,6 @@
   },
   "homepage": "https://github.com/mollerse/ait-dom#readme",
   "peerDependencies": {
-    "ait-lang": "^0.2.0"
+    "ait-lang": "^0.3.0"
   }
 }

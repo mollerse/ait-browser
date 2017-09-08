@@ -1,36 +1,35 @@
-const jsword = require('ait-lang/interfaces');
+const {
+  aitFFIUnwrapValue: unwrap,
+  aitFFI__F: aitF,
+  aitFFIWrapValue: wrap
+} = require('ait-lang/ffi');
 
-function fpsToMs(fps) {
-  // We know that 60fps means 16.5ms to do all calcs
-  return 60 / fps * 16.5;
+function createElement(n) {
+  const name = unwrap(n);
+  return wrap(document.createElement(name));
 }
 
-const rAF = jsword('rAF', function(fps, quote) {
-  const timestamp = new Date().valueOf();
-  const msThreshold = fpsToMs(fps);
+function setAttribute(val, attrName, el) {
+  unwrap(el).setAttribute(unwrap(attrName), unwrap(val));
+  return el;
+}
 
-  const frame = () => this.evaluateQuotation(quote);
-  const animationId = id => this.addAnimation(timestamp, id);
+function windowInnerHeight() {
+  return wrap(window.innerHeight);
+}
 
-  let rafID;
-  let lastFrame = 0;
-  function inner(t) {
-    const delta = t - lastFrame;
+function windowInnerWidth() {
+  return wrap(window.innerWidth);
+}
 
-    rafID = requestAnimationFrame(inner);
-    animationId(rafID);
+function querySelector(query) {
+  return wrap(document.querySelector(unwrap(query)));
+}
 
-    if (lastFrame && delta < msThreshold) {
-      return;
-    }
-
-    frame();
-
-    lastFrame = t;
-  }
-
-  rafID = requestAnimationFrame(inner);
-  animationId(rafID);
-});
-
-module.exports = { rAF };
+module.exports = {
+  createElement: aitF(1, 'createElement', createElement),
+  setAttribute: aitF(3, 'setAttribute', setAttribute),
+  windowInnerHeight: aitF(0, 'windowInnerHeight', windowInnerHeight),
+  windowInnerWidth: aitF(0, 'windowInnerWidth', windowInnerWidth),
+  querySelector: aitF(1, 'querySelector', querySelector)
+};
